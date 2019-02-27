@@ -20,13 +20,19 @@ import React from "react";
 class TodoItem extends React.Component{
 
     render(){
+
+       const completedStyle = {
+           fontStyle : "italic",
+           color: "#cdcdcd",
+           textDecoration: "line-through"
+       }
         return(
             <div className="todo-item">
             <input type="checkbox" 
             checked={this.props.todos.status} 
             onChange = {()=> this.props.onChange(this.props.todos.key)}
             />
-            <p>{this.props.todos.text}</p>
+            <p style={this.props.todos.status ? completedStyle : null} >{this.props.todos.text}</p>
     
         </div>
         )

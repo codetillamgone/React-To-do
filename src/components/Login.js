@@ -1,26 +1,33 @@
 import React from "react";
 
 class Login extends React.Component{
+
+
+
+    
     render(){
-        let boolval;
-        switch(this.props.loginCheck.state){
-            case true:
-                boolval = true
-                break;
-            case false:
-                boolval = false;
-                break;
+        const testValue = {}
+        if(this.props.requiredAttributes.isLoggedIn){
+
+            testValue.text = "Logged In"
+            testValue.button = "Out"
         }
-
+        else{
+            testValue.text = "Logged Out"
+            testValue.button = "In"
+        }
         return(
-
-            <h1>You are currently logged({boolval ? "in" : "out"})</h1>
+            
+            <div>
+            <h1>{testValue.text}</h1>
+            <button onClick={this.props.requiredAttributes.handleClick} >Log {testValue.button}</button>
+        </div>
         )
+       
+        
+    
     }
 }
 
 
-
-
-
-export default Login;
+export default Login

@@ -21,20 +21,41 @@ class App extends React.Component{
     super();
     this.state = {
       todo: todoData,
-      isLoading: true
+      isLoggedIn: true,
+      isLoading:true
       }
   
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
  }
 
 
 componentDidMount(){  //Chance to run some code right after our component mounts on the screen for the first time
   setTimeout(() =>{
-    this.setState({
-      isLoading:false
+    this.setState(prevState=>{
+      return{
+        todo: prevState.todo,
+        isLoggedIn: prevState.isLoggedIn,
+        isLoading: !prevState.isLoading
+      }
     })
   }, 1500)
 }
+
+handleClick(){
+  
+    this.setState((prevState) =>{
+     return{
+      todo : prevState.todo,
+      isLoggedIn : !prevState.isLoggedIn
+     }
+    }
+
+    )
+ 
+
+}
+
  handleChange(id){
 
   this.setState((prevSate) => {
@@ -59,7 +80,7 @@ componentDidMount(){  //Chance to run some code right after our component mounts
   
   render(){
 
-     const productComponentArray = vSchoolProduct.map((product) =>
+  /*   const productComponentArray = vSchoolProduct.map((product) =>
     <Product products={{
       key:product.id,
       name:product.name,
@@ -67,7 +88,7 @@ componentDidMount(){  //Chance to run some code right after our component mounts
       description:product.description
     }}/>
    )
- 
+   */
    const todoArray = this.state.todo.map((item)=>
    <TodoItem 
 
@@ -79,42 +100,27 @@ componentDidMount(){  //Chance to run some code right after our component mounts
      }}
    />
  )
+ 
     return(
       <div>
 
-      <Header/>
+        <Header/>
+        {this.state.isLoading ? 
+        <h1>Loading tasks...</h1> :
+        todoArray 
+      }
+      </div>
+     
+     
 
-      <ContactCard 
-      contact={{
-        imgUrl:"http://placekitten.com/200/300",
-        name: "Mr Whiskerson",
-        phone:"(212) 555-1234",
-        email:"adebiyi137@gmail.com"
-    }}      />
 
-      {todoArray}
 
-      <Joke
-        jokes={{
-          joke: "what joke are you looking for",
-          punchline: "Dey there dey find joke"
-        }}      />
-
-      <Joke
-      jokes={{
-        punchline:"It's hard to explain puns to kleptomanaics because they always take things literally"
-      }}     />
-
-     {productComponentArray}
-
-     <Login  loginCheck={{
-       state: this.state.isLoggedIn
-     }} />
-
-     {this.state.isLoading ? <h1>Loading...</h1> :  <Conditional />}
    
 
-    </div>
+ 
+   
+
+  
     );
   }
 }
